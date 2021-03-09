@@ -373,6 +373,6 @@ def killLivy(sessionNumber):
 
 def toPandasLocal(dfname):
     dfstatement = dfname + """.columns.mkString(",") ++ "\\n " ++ """ + dfname + """.collect().map(row => row.mkString(",")).mkString("\\n ")"""
-    localdata = StringIO(get_livy(dfstatement))
+    localdata = StringIO(getLivy(dfstatement))
     df = pd.read_csv(localdata, sep=",")
     return df
