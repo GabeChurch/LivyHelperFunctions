@@ -370,3 +370,9 @@ def killLivy(sessionNumber):
     headers = {'Content-Type': 'application/json'}
     r = requests.delete(statements_url, headers=headers)
     return str(r)
+
+def toPandasLocal(dfname):
+    dfstatement = dfname + """.columns.mkString(",") ++ "\\n " ++ """ + dfname + """.collect().map(row => row.mkString(",")).mkString("\\n ")"""
+    localdata = StringIO(get_livy(dfstatement))
+    df = pd.read_csv(localdata, sep=",")
+    return df
